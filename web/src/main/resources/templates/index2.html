@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>index</title>
+</head>
+<body>
+	<h1>index입니다.</h1>
+	[[${test}]]<br>
+	<th:block th:text="${test}"></th:block>
+	<table>
+		<thead>
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>글쓴이</th>
+			<th>쓴날짜</th>
+			<th>조회</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="row : ${list }">
+			<td th:text="${row.board_no }"></td>
+			<td>
+				<a th:href="@{/detail(no=${row.board_no })}" th:text="${row.board_title }"></a>
+			</td>
+			<td th:text="${row.board_write }"></td>
+			<td th:text="${row.board_date }"></td>
+			<td th:text="${row.board_count }"></td>
+		</tr>
+		</tbody>
+	</table>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

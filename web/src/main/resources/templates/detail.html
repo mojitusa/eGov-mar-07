@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	[[${detail.board_no}]]
+	[[${detail.board_title}]]
+	<th:block th:utext="${detail.board_content}"></th:block>
+</body>
+</html>
