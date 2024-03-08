@@ -1,11 +1,13 @@
 package com.poseidon.web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.poseidon.web.dto.BoardDTO;
@@ -34,14 +36,12 @@ public class IndexController {
 		return "index";
 	}
 	
-	@GetMapping("/board")
-	public String freeboard(Model model){
-		List<BoardDTO> fb = indexService.freeboard();
+	@GetMapping("/freeboard")
+	public String freeboard(@RequestParam(value="cate", defaultValue = "1") int cate,  Model model){
+		List<BoardDTO> fb = indexService.freeboard(cate);
 		model.addAttribute("fb", fb);
 		return "board";
 	}
-	
-	
 	
 	
 	//20240307 안드로이드 앱 프로그래밍 psd 
@@ -55,6 +55,35 @@ public class IndexController {
 		return "detail";
 	}
 	
+	@GetMapping("/notice")
+	public String notice(@RequestParam(value="cate", defaultValue = "2") int cate, Model model) {
+		List<BoardDTO> board = indexService.freeboard(cate);
+		model.addAttribute("fb", board);
+		
+		return "notice";
+	}
 	
+	@GetMapping("/write")
+	public String write() {
+		
+		return "write";
+	}
+	
+	@PostMapping("/write")
+	public String write(@RequestParam Map<String, Object> map) {
+		System.out.println(map);
+		indexService.write(map);
+		
+		return "write";
+	}
+	
+	@PostMapping("/postDel")
+	public String postDel(@RequestParam("no") int no) {
+		System.out.println("삭제할 글 번호 : " + no);
+		int result = indexService.postDel(no);
+		System.out.println("삭제 성공 : " + result);
+		
+		return "redirect:/freeboard?cate=1";
+	}
 	
 }

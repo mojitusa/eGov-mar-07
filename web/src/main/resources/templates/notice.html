@@ -51,23 +51,23 @@
     <!-- Quote/testimonial aside-->
     <aside class="text-center">
         <div class="container px-5">
-			
-			<div class="table table-hover">
-				<div class="row" th:each="row : ${fb}" >
-					<div class="col-1" th:text="${row.mtno}"></div> 
-					<div class="col-6 text-start" th:onclick="|location.href='@{/detail(no=${row.mtno})}'|">[[${row.mttitle }]]</div> 
-					<div class="col-2" th:text="${row.mname}"></div> 
-					<div class="col-2" th:text="${row.mtdate}"></div> 
-					<div class="col-1" th:text="${row.mtread}"></div> 
+        	<h1>공지사항</h1>
+        	
+        	<span th:text="${#lists.size(fb)}"></span>
+        	<div th:if="${#lists.size(fb) eq 0}">
+        		데이터 없음
+        	</div>
+        	<div th:unless="${#lists.size(fb) eq 0}">
+				<div class="table table-hover">
+					<div class="row" th:each="row : ${fb}" >
+						<div class="col-1" th:text="${row.mtno}"></div> 
+						<div class="col-6" >[[${row.mttitle }]]</div> 
+						<div class="col-2" th:text="${row.mname}"></div> 
+						<div class="col-2" th:text="${row.mtdate}"></div> 
+						<div class="col-1" th:text="${row.mtread}"></div> 
+					</div>
 				</div>
 			</div>
-			
-			<button type="button" th:with="cate=${fb[0].mtcate}" class="btn btn-primary" 
-			th:onclick="|location.href='@{/write (cate=${cate})}'|">글쓰기</button>
-			
-			<button type="button" class="btn btn-primary" 
-			th:onclick="|location.href='@{/write (cate=${param.cate})}'|">글쓰기</button>
-			
         </div>
     </aside>
     <!-- App features section-->

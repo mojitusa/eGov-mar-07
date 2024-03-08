@@ -52,22 +52,24 @@
     <aside class="text-center">
         <div class="container px-5">
 			
-			<div class="table table-hover">
-				<div class="row" th:each="row : ${fb}" >
-					<div class="col-1" th:text="${row.mtno}"></div> 
-					<div class="col-6 text-start" th:onclick="|location.href='@{/detail(no=${row.mtno})}'|">[[${row.mttitle }]]</div> 
-					<div class="col-2" th:text="${row.mname}"></div> 
-					<div class="col-2" th:text="${row.mtdate}"></div> 
-					<div class="col-1" th:text="${row.mtread}"></div> 
+			<h1>글쓰기</h1>
+			[[${param.cate}]]
+			<form action="/write" method="post">
+				<div class="p-2 rounded" style="background-color: lightgray">
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="basic-addon1">제목</span>
+						<input type="text" name="title" class="form-control" placeholder="제목" aria-label="제목" aria-describedby="basic-addon1">
+					</div>
+					<div class="inpout-group">
+						<span class="input-group-text">본문</span>
+						<textarea id="content" name="content" class="form-control" aria-label="With textarea" style="height: 300px"></textarea>
+					</div>
 				</div>
-			</div>
-			
-			<button type="button" th:with="cate=${fb[0].mtcate}" class="btn btn-primary" 
-			th:onclick="|location.href='@{/write (cate=${cate})}'|">글쓰기</button>
-			
-			<button type="button" class="btn btn-primary" 
-			th:onclick="|location.href='@{/write (cate=${param.cate})}'|">글쓰기</button>
-			
+				<div class="mt-2">
+					<button type="submit" class="btn btn-info">글쓰기</button>
+				</div>
+				<input type="hidden" name="mtcate" th:value="${param.cate}">
+			</form>	
         </div>
     </aside>
     <!-- App features section-->

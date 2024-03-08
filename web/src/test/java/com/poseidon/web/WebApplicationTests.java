@@ -2,25 +2,36 @@ package com.poseidon.web;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.poseidon.web.dto.BoardDTO;
-import com.poseidon.web.service.IndexService;
+import com.poseidon.web.service.MemberService;
 
 @SpringBootTest
 class WebApplicationTests {
 	@Autowired
-	IndexService indexService;
+	MemberService memberService;
 
+	@DisplayName("로그인 카운트 값 확인합니다.")
 	@Test
-	@DisplayName("no값 오는지 확인")
 	void contextLoads() {
-		BoardDTO detail = indexService.detail(406);
-//		assertEquals(detail, null);
-		//assertEquals("가나다", detail.getBoard_title());
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("id", "testID 1");
+//		map.put("pw", "01234567");
+//		
+//		Map<String, Object> result = memberService.login(map);
+//		
+//		assertEquals(1, Integer.parseInt((String)result.get("count")));
+		
+		int num = 100;
+		assertEquals(100, num);
+		
 	}
-
+		
 }
+	

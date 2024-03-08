@@ -1,6 +1,7 @@
 package com.poseidon.web.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,20 @@ public class IndexService {
 		return indexDAO.detail(no);
 	}
 
-	public List<BoardDTO> freeboard() {
-		return indexDAO.freeboard();
+	public List<BoardDTO> freeboard(int cate) {
+		return indexDAO.freeboard(cate);
+	}
+
+	public int write(Map<String, Object> map) {
+		//DB에 있는 mid, ip를 넣어 주세요.
+		map.put("mid", "testID 1");
+		
+		return indexDAO.write(map);
+	}
+
+	public int postDel(int no) {
+		 return indexDAO.postDel(no);
+		
 	}
 	
 	

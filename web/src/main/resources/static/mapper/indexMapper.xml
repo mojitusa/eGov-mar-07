@@ -4,17 +4,36 @@
 
 <mapper namespace="com.poseidon.web.dao.IndexDAO">
 	<select id="freeboard" resultType="BoardDTO">
-		SELECT mtno, mttitle, mno, mtip, mtread, mtcate, mtdate, mtdel
-		FROM multiboard
+		SELECT mtno, mttitle, mno, mname, 
+		if(DATE_FORMAT(now(), '%Y-%m-%d') = DATE_FORMAT(mtdate, '%Y-%m-%d'), 
+			DATE_FORMAT(mtdate, '%H:%i'), 
+			DATE_FORMAT(mtdate, "%m-%d") 
+			) AS mtdate, 
+		mtip, mtread, mtcate, mtdel
+		FROM multiboardview
+		WHERE 
+		mtdel=1 
+			
+		AND mtcate=#{cate}
+		ORDER BY mtno DESC
 		LIMIT 0, 10
 	</select>
 	
 	<select id="detail" parameterType="int" resultType="BoardDTO">
-		SELECT board_no, board_title, board_content, board_date
-		FROM board
-		WHERE board_no=#{no}
+		SELECT mtno, mttitle, mtcontent, mtdate, (SELECT mname FROM member m WHERE m.mno = multiboard.mno) AS mname 
+		FROM multiboard 
+		WHERE mtno=#{no}
 	</select>
 	
+	<insert id="write" parameterType="map">
+		INSERT INTO multiboard (mttitle, mtcontent, mno, mtcate) 
+		VALUES (#{title}, #{content}, (SELECT mno FROM member WHERE mid=#{mid}), #{mtcate})
+	</insert>
+	
+	<update id="postDel" parameterType="Integer">
+		UPDATE multiboard SET mtdel = 0
+		WHERE mtno=#{no}
+	</update>
 	
 	
 </mapper>
